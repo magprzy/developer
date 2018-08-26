@@ -1,10 +1,13 @@
 package com.capgemini.domain;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,30 +15,43 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.capgemini.listeners.Auditable;
+import com.capgemini.listeners.PreListeners;
+
 import model.Address;
 
 @Entity
 @Table (name = "Building")
-public class BuildingEntity {
+@EntityListeners (PreListeners.class)
+public class BuildingEntity implements Auditable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	@Version
-	private Long version;
-	@OneToMany
-	private Set<FlatEntity> flats = new HashSet<>();
 	
+	@OneToMany (cascade = CascadeType.REMOVE, mappedBy = "building")
+	private Set<FlatEntity> flats = new HashSet<>();
 	private String description;
 	
 	@Embedded
 	private Address address;
+
 	private int numberOfFlors;
+
 	boolean isLift;
-	private int numberOfFlats = flats.size();
+
+	private int numberOfFlats;
+
+	private Date dateCreated;
+	private Date dateLastUpdated;
+	@Version
+	private Long version;
 	
 
 	
+	public BuildingEntity() {
+		
+	}
 	public Long getId() {
 		return id;
 	}
@@ -72,6 +88,38 @@ public class BuildingEntity {
 	public void setNumberOfFlats(int numberOfFlats) {
 		this.numberOfFlats = numberOfFlats;
 	}
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+	public Set<FlatEntity> getFlats() {
+		return flats;
+	}
+	public void setFlats(Set<FlatEntity> flats) {
+		this.flats = flats;
+	}
+	
+	@Override
+	public void setDateCreated(Date date) {
+		this.dateCreated = date;
+	}
+	@Override
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+	
+	@Override
+	public void setDateLastUpdated(Date date) {
+		this.dateLastUpdated = date;
+		
+	}
+	@Override
+	public Date getDateLastUpdated() {
+		return dateLastUpdated;
+	}
+
 	
 	
 }
