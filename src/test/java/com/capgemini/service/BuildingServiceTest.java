@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,68 +26,69 @@ import model.Address;
 @SpringBootTest
 @Transactional
 public class BuildingServiceTest {
-	
-	@Autowired
-	private ClientService clientService;
 
 	@Autowired
 	private BuildingService buildingService;
 
 	@Autowired
-	private FlatService flatService;
-	
-	@Autowired
 	private BuildingDao buildingDao;
-	
+
 	@Autowired
 	private FlatDao flatDao;
-	
+
 	@Test
 	@Transactional
 	public void shouldAddBuilding() {
 		// given
-	
+
 		BuildingTO building = new BuildingTO("Apartment for family", new Address("Poznan", "Kolorowa", "6"), 10, true,
 				null, 22);
 
 		// when
 		BuildingTO addedBuilding = buildingService.addBuilding(building);
+
 		// then
 		assertNotNull(buildingService.findAllBuildings());
 		assertEquals("Kolorowa", addedBuilding.getAddress().getStreet());
 		assertEquals(22, addedBuilding.getNumberOfFlats());
-}
+	}
+
 	@Test
 	@Transactional
 	public void shouldFindBuildingHavingMaxFreeFlats() {
+		// given
 		addTestBuildingsAndFlats();
-		
+
+		// when
 		BuildingEntity result = buildingDao.findBuildingWithMaxFreeFlats();
+
+		// then
 		assertEquals("Warszawa", result.getAddress().getCity());
 	}
-	
-	
+
 	@Test
 	@Transactional
-	public void shouldFindFlatsForDisabled(){
+	public void shouldFindFlatsForDisabled() {
+		// given
 		addTestBuildingsAndFlats();
-		
+
+		// when
 		List<FlatEntity> result = flatDao.findFlatsForDisabled();
 		
+		// then
 		assertEquals(3, result.size());
 	}
-	
-	public void addTestBuildingsAndFlats(){
-		Set<FlatEntity> flats = new HashSet<>();
-		Set<FlatEntity> flats2 = new HashSet<>();
-		
-		
-		BuildingEntity building = new BuildingEntity(flats, "Beautiful building", new Address("Poznan", "Kolorowa", "6"), 5, true, 10);
+
+	public void addTestBuildingsAndFlats() {
+
+		BuildingEntity building = new BuildingEntity(new HashSet<>(), "Beautiful building",
+				new Address("Poznan", "Kolorowa", "6"), 5, true, 10);
 		BuildingEntity addedBuilding = buildingDao.save(building);
-		
-		BuildingEntity building2 = new BuildingEntity(flats2, "Near the forest", new Address("Warszawa", "Asnyka", "845"),4,false,6);
+
+		BuildingEntity building2 = new BuildingEntity(new HashSet<>(), "Near the forest",
+				new Address("Warszawa", "Asnyka", "845"), 4, false, 6);
 		BuildingEntity addedBuilding2 = buildingDao.save(building2);
-		
+
 		FlatEntity freeFlat1 = new FlatEntity(80L, 4L, 1L, 0, new Address("Poznan", "Kolorowa", "6/56"),
 				FlatStatus.FREE, 500000L, addedBuilding, null);
 		FlatEntity freeFlat2 = new FlatEntity(80L, 4L, 1L, 3L, new Address("Poznan", "Kolorowa", "6/56"),
@@ -104,6 +104,6 @@ public class BuildingServiceTest {
 		flatDao.save(freeFlat3);
 		flatDao.save(freeFlat4);
 		flatDao.save(freeFlat5);
-		
+
 	}
 }

@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 
 import com.capgemini.listeners.Auditable;
 import com.capgemini.listeners.PreListeners;
@@ -31,17 +32,23 @@ public class BuildingEntity implements Auditable{
 	
 	@OneToMany (cascade = CascadeType.REMOVE, mappedBy = "building")
 	private Set<FlatEntity> flats = new HashSet<>();
+	
 	private String description;
 	
+	@NotNull
 	@Embedded
 	private Address address;
-
+	
+	@NotNull
 	private int numberOfFlors;
-
+	
+	@NotNull
 	boolean isLift;
-
+	
+	@NotNull
 	private int numberOfFlats;
 
+	@NotNull
 	private Date dateCreated;
 	private Date dateLastUpdated;
 	@Version

@@ -1,6 +1,7 @@
 package com.capgemini.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -16,19 +17,19 @@ import com.capgemini.enums.FlatStatus;
 import com.capgemini.mappers.ClientMapper;
 import com.capgemini.service.ClientService;
 import com.capgemini.types.ClientTO;
+
 @Service
 @Transactional
 public class ClientServiceImpl implements ClientService {
 	@Autowired
 	private ClientDao clientDao;
-	
+
 	@Autowired
 	private FlatDao flatDao;
 
-	
 	@Override
 	public ClientTO addClient(ClientTO client) {
-		 ClientEntity clientEntity = clientDao.save(ClientMapper.toClientEntity(client));
+		ClientEntity clientEntity = clientDao.save(ClientMapper.toClientEntity(client));
 		return ClientMapper.toClientTO(clientEntity);
 	}
 
@@ -50,42 +51,63 @@ public class ClientServiceImpl implements ClientService {
 		clientEntity.setLastName(client.getLastName());
 		clientEntity.setAddress(client.getAddress());
 		clientEntity.setContact(client.getContact());
-		
+
 		clientDao.save(clientEntity);
 	}
 
 	@Override
 	public List<ClientTO> findAllClients() {
-		
-	return ClientMapper.toClientTOList(Lists.newArrayList(clientDao.findAll()));
-		
+
+		return ClientMapper.toClientTOList(Lists.newArrayList(clientDao.findAll()));
+
 	}
 
 	@Override
-	public void buyFlat(Long clientId, Long flatId) {
+	public void buyFlat(Long clientId, Long flatId) throws IllegalAccessException {
 		ClientEntity clientEntity = clientDao.findOne(clientId);
 		FlatEntity flatEntity = flatDao.findOne(flatId);
-		flatEntity.setStatus(FlatStatus.SOLD);
 		
-		clientEntity.getFlats().add(flatEntity);
-		clientDao.save(clientEntity);
+		//check if flat is booked by other client
+		if (clientEntity.getFlats().contains(flatEntity) == false && (flatEntity.getStatus().equals(FlatStatus.BOOKED))){
+			throw new IllegalAccessException("This flat is booked by other clint");
 		
-		flatEntity.getClients().add(clientEntity);
-		flatDao.save(flatEntity);
-		
+		}
+		else
+		{
+			flatEntity.setStatus(FlatStatus.SOLD);
+
+			clientEntity.getFlats().add(flatEntity);
+			clientDao.save(clientEntity);
+
+			flatEntity.getClients().add(clientEntity);
+			flatDao.save(flatEntity);
+		}
+
 	}
 
 	@Override
-	public void bookFlat(Long clientId, Long flatId) {
+	public void bookFlat(Long clientId, Long flatId) throws IllegalAccessException {
 		ClientEntity clientEntity = clientDao.findOne(clientId);
 		FlatEntity flatEntity = flatDao.findOne(flatId);
-		flatEntity.setStatus(FlatStatus.BOOKED);
-		
-		clientEntity.getFlats().add(flatEntity);
-		clientDao.save(clientEntity);
-		
-		flatEntity.getClients().add(clientEntity);
-		flatDao.save(flatEntity);
+
+		if (flatEntity.getStatus().equals(FlatStatus.SOLD) == false) {
+			if (clientEntity.getFlats().stream().filter(s -> s.getStatus().equals(FlatStatus.BOOKED))
+					.collect(Collectors.toList()).size() < 3) {
+				flatEntity.setStatus(FlatStatus.BOOKED);
+
+				clientEntity.getFlats().add(flatEntity);
+				clientDao.save(clientEntity);
+
+				flatEntity.getClients().add(clientEntity);
+				flatDao.save(flatEntity);
+			} else {
+				throw new IllegalAccessException("Client has already has 3 reservation");
+			}
+		}
+		else {
+			throw new IllegalAccessException("This flat is sold");
+					
+		}
 	}
 
 }

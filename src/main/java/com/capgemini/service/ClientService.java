@@ -16,8 +16,8 @@ public interface ClientService {
 	
 	List<ClientTO> findAllClients();
 	
-	void buyFlat(Long clientId, Long flatId);
+	void buyFlat(Long clientId, Long flatId) throws IllegalAccessException;
 	
-	void bookFlat(Long clientId, Long flatId);
+	void bookFlat(Long clientId, Long flatId) throws IllegalAccessException;
 
 }
