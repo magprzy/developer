@@ -17,4 +17,6 @@ public interface FlatDaoCustom {
 	Double countAveragePriceOfFlatInBuilding(Long buildingID);
 
 	Long countFlatWithStatusInBuilding(FlatStatus status, Long buildingId);
+
+	List<FlatEntity> findFlatsForDisabled();
 }

@@ -88,6 +88,12 @@ public class FlatDaoImpl implements FlatDaoCustom {
 		return result;
 	}
 	
+	@Override
+	public List<FlatEntity> findFlatsForDisabled(){
+		JPAQueryFactory qf = new JPAQueryFactory(em);
+		List<FlatEntity> result = qf.selectFrom(qflat).join(qflat.building, qbuilding).where(qbuilding.isLift.isTrue().or(qflat.flor.eq(0L))).fetch();
+		return result;
+	}
 	
 
 }
