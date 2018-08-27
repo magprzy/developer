@@ -2,10 +2,7 @@ package com.capgemini.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-
-import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,12 +12,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capgemini.dao.ClientDao;
-import com.capgemini.domain.ClientEntity;
 import com.capgemini.enums.FlatStatus;
 import com.capgemini.types.BuildingTO;
 import com.capgemini.types.ClientTO;
 import com.capgemini.types.FlatTO;
-
 
 import model.Address;
 import model.ContactDetails;
@@ -126,7 +121,7 @@ public class ClientServiceTest {
 	}
 
 	public FlatTO addTestFlat() {
-		FlatTO flat = new FlatTO(80L, 4, 1, 3, new Address("Poznan", "Kolorowa", "6/56"), FlatStatus.FREE, 500000L,
+		FlatTO flat = new FlatTO(80L, 4L, 1L, 3L, new Address("Poznan", "Kolorowa", "6/56"), FlatStatus.FREE, 500000L,
 				(long) 1, null);
 		FlatTO addedFlat = flatService.addFlat(flat);
 		return addedFlat;

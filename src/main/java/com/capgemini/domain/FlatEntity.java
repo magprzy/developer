@@ -35,13 +35,13 @@ public class FlatEntity implements Auditable {
 	private Long size;
 	
 	
-	private int numberOfRooms;
+	private Long numberOfRooms;
 	
 	
-	private int numberOfBalconies;
+	private Long numberOfBalconies;
 	
 	
-	private int flor;
+	private Long flor;
 	
 	
 	@Embedded
@@ -68,11 +68,27 @@ public class FlatEntity implements Auditable {
 	@Version
 	private Long version;
 	
-	
-	public FlatEntity() {
-	
+	public FlatEntity(){
+		
 	}
 	
+	public FlatEntity( long size, long numberOfRooms, long numberOfBalconies, long flor, Address address,
+			FlatStatus status, long price, BuildingEntity buildingEntity, Set<ClientEntity> clients) {
+		
+		
+		this.size = size;
+		this.numberOfRooms = numberOfRooms;
+		this.numberOfBalconies = numberOfBalconies;
+		this.flor = flor;
+		this.address = address;
+		this.status = status;
+		this.price = price;
+		this.building = buildingEntity;
+		this.clients = clients;
+	}
+
+
+
 	public Long getId() {
 		return id;
 	}
@@ -85,22 +101,22 @@ public class FlatEntity implements Auditable {
 	public void setSize(Long size) {
 		this.size = size;
 	}
-	public int getNumberOfRooms() {
+	public Long getNumberOfRooms() {
 		return numberOfRooms;
 	}
-	public void setNumberOfRooms(int numberOfRooms) {
+	public void setNumberOfRooms(Long numberOfRooms) {
 		this.numberOfRooms = numberOfRooms;
 	}
-	public int getNumberOfBalconies() {
+	public Long getNumberOfBalconies() {
 		return numberOfBalconies;
 	}
-	public void setNumberOfBalconies(int numnerOfBalconies) {
+	public void setNumberOfBalconies(Long numnerOfBalconies) {
 		this.numberOfBalconies = numnerOfBalconies;
 	}
-	public int getFlor() {
+	public Long getFlor() {
 		return flor;
 	}
-	public void setFlor(int flor) {
+	public void setFlor(Long flor) {
 		this.flor = flor;
 	}
 	public Address getAddress() {

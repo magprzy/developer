@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.capgemini.domain.BuildingEntity;
-import com.capgemini.domain.FlatEntity;
 import com.capgemini.types.BuildingTO;
-import com.capgemini.types.FlatTO;
 
 public class BuildingMapper {
 

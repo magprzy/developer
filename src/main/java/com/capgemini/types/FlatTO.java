@@ -11,9 +11,9 @@ public class FlatTO {
 	
 	private Long id;
 	private Long size;
-	private int numberOfRooms;
-	private int numberOfBalconies;
-	private int flor;
+	private Long numberOfRooms;
+	private Long numberOfBalconies;
+	private Long flor;
 	private Address address;
 	private FlatStatus status;
 	private Long price;
@@ -23,7 +23,7 @@ public class FlatTO {
 	public FlatTO(){
 		
 	}
-	public FlatTO(Long size, int numberOfRooms, int numberOfBalconies, int flor, Address address, FlatStatus status,
+	public FlatTO(Long size, Long numberOfRooms, Long numberOfBalconies, Long flor, Address address, FlatStatus status,
 			Long price) {
 		super();
 		this.size = size;
@@ -35,7 +35,7 @@ public class FlatTO {
 		this.price = price;
 	
 	}
-	public FlatTO(Long size, int numberOfRooms, int numberOfBalconies, int flor, Address address, FlatStatus status,
+	public FlatTO(Long size, Long numberOfRooms, Long numberOfBalconies, Long flor, Address address, FlatStatus status,
 			Long price, Long buildingId, Set<Long> clients) {
 		super();
 		this.size = size;
@@ -60,22 +60,22 @@ public class FlatTO {
 	public void setSize(Long size) {
 		this.size = size;
 	}
-	public int getNumberOfRooms() {
+	public Long getNumberOfRooms() {
 		return numberOfRooms;
 	}
-	public void setNumberOfRooms(int numberOfRooms) {
+	public void setNumberOfRooms(Long numberOfRooms) {
 		this.numberOfRooms = numberOfRooms;
 	}
-	public int getNumberOfBalconies() {
+	public Long getNumberOfBalconies() {
 		return numberOfBalconies;
 	}
-	public void setNumberOfBalconies(int numnerOfBalconies) {
+	public void setNumberOfBalconies(Long numnerOfBalconies) {
 		this.numberOfBalconies = numnerOfBalconies;
 	}
-	public int getFlor() {
+	public Long getFlor() {
 		return flor;
 	}
-	public void setFlor(int flor) {
+	public void setFlor(Long flor) {
 		this.flor = flor;
 	}
 	public Address getAddress() {

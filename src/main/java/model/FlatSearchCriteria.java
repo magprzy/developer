@@ -4,10 +4,10 @@ public class FlatSearchCriteria {
 
 	private Long minSize;
 	private Long maxSize;
-	private int minNumberOfRooms;
-	private int maxNumberOfRooms;
-	private int minNumberOfBalconies;
-	private int maxNumberOfBalconies;
+	private Long minNumberOfRooms;
+	private Long maxNumberOfRooms;
+	private Long minNumberOfBalconies;
+	private Long maxNumberOfBalconies;
 	
 
 	public FlatSearchCriteria() {
@@ -15,8 +15,8 @@ public class FlatSearchCriteria {
 	}
 
 	
-	public FlatSearchCriteria(Long minSize, Long maxSize, int minNumberOfRooms, int maxNumberOfRooms,
-			int minNumberOfBalconies, int maxNumberOfBalconies) {
+	public FlatSearchCriteria(Long minSize, Long maxSize, Long minNumberOfRooms, Long maxNumberOfRooms,
+			Long minNumberOfBalconies, Long maxNumberOfBalconies) {
 	
 		this.minSize = minSize;
 		this.maxSize = maxSize;
@@ -48,42 +48,42 @@ public class FlatSearchCriteria {
 	}
 
 
-	public int getMinNumberOfRooms() {
+	public Long getMinNumberOfRooms() {
 		return minNumberOfRooms;
 	}
 
 
-	public void setMinNumberOfRooms(int minNumberOfRooms) {
+	public void setMinNumberOfRooms(Long minNumberOfRooms) {
 		this.minNumberOfRooms = minNumberOfRooms;
 	}
 
 
-	public int getMaxNumberOfRooms() {
+	public Long getMaxNumberOfRooms() {
 		return maxNumberOfRooms;
 	}
 
 
-	public void setMaxNumberOfRooms(int maxNumberOfRooms) {
+	public void setMaxNumberOfRooms(Long maxNumberOfRooms) {
 		this.maxNumberOfRooms = maxNumberOfRooms;
 	}
 
 
-	public int getMinNumberOfBalconies() {
+	public Long getMinNumberOfBalconies() {
 		return minNumberOfBalconies;
 	}
 
 
-	public void setMinNumberOfBalconies(int minNumberOfBalconies) {
+	public void setMinNumberOfBalconies(Long minNumberOfBalconies) {
 		this.minNumberOfBalconies = minNumberOfBalconies;
 	}
 
 
-	public int getMaxNumberOfBalconies() {
+	public Long getMaxNumberOfBalconies() {
 		return maxNumberOfBalconies;
 	}
 
 
-	public void setMaxNumberOfBalconies(int maxNumberOfBalconies) {
+	public void setMaxNumberOfBalconies(Long maxNumberOfBalconies) {
 		this.maxNumberOfBalconies = maxNumberOfBalconies;
 	}
 

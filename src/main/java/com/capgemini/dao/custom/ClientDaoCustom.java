@@ -6,5 +6,5 @@ import com.capgemini.domain.ClientEntity;
 
 public interface ClientDaoCustom {
 
-	List<ClientEntity> findAllClientsWithAtLeastTwoFlats();
+	List<ClientEntity> findAllClientsWithMinTwoFlats();
 }

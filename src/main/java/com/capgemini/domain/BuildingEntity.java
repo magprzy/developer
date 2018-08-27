@@ -52,6 +52,20 @@ public class BuildingEntity implements Auditable{
 	public BuildingEntity() {
 		
 	}
+	
+	
+	public BuildingEntity(Set<FlatEntity> flats, String description, Address address, int numberOfFlors, boolean isLift,
+			int numberOfFlats) {
+		super();
+		this.flats = flats;
+		this.description = description;
+		this.address = address;
+		this.numberOfFlors = numberOfFlors;
+		this.isLift = isLift;
+		this.numberOfFlats = numberOfFlats;
+	}
+
+
 	public Long getId() {
 		return id;
 	}
